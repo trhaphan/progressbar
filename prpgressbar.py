@@ -7,13 +7,11 @@ def print_progress_bar(bar_size: int, fraction_downloaded: float, is_replaceable
             bar_size: the number of characters to fill in
             fraction_downloaded: the fraction of the file downloaded
             is_replaceable: True if the printed line should end with '\r', '\n' otherwise.
-    """    
-    end_char = None
-    if ???????
-        ????????
-    else:
-        ????????
+    """
+    
+    end_char = '\r' if is_replaceable else '\n'
     progress = int(fraction_downloaded * bar_size)
+    
     print("{:3.0f}".format(100*fraction_downloaded) + '% ['+ '*'*progress + ' '*(bar_size-progress)+']', flush=True, end=end_char)
 
 if __name__ == "__main__":
@@ -28,4 +26,11 @@ if __name__ == "__main__":
     
     size_downloaded = 0
     while size_downloaded < file_size:
-        ??????
+        """ em hieu hong """
+        fraction_downloaded = min(size_downloaded / file_size, 1.0)
+        print_progress_bar(progress_bar_size, fraction_downloaded, is_replaceable=True)
+        time.sleep(time_between_updates)
+        size_downloaded += progress_between_updates
+
+    # Ensure 100% is printed once at the end
+    print_progress_bar(progress_bar_size, 1.0, is_replaceable=False)
